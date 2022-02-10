@@ -1,34 +1,36 @@
-import flask
-import requests
 import os
 import random
-from tmdb import *
+import flask
+import requests
+from tmdb import get_title, get_tagline, get_genre, get_image, get_wiki_page
 
 app = flask.Flask(__name__)
 
 BASE_URL = "https://api.themoviedb.org/3"
-query_params = {
+QUERY_PARAMS = {
     'api_key': os.getenv('API_KEY'),
 }
 
 def get_random_movie():
-    favoriteMovies = [313369, 122906, 27205, 673, 38757, 2062] #lalaland, about time, inception, HP, tangled, ratatouille
-    movie_id = random.choice(favoriteMovies) #chooses random movie_id from the list
-    MOVIE_URL = BASE_URL + "/movie/" + str(movie_id)
-    movie_response = requests.get(MOVIE_URL, params=query_params)
+    '''randomizes the movieId from the list of movieIds, and builds movie url'''
+    favorite_movies = [313369, 122906, 27205, 673, 38757, 2062] #lalaland, about time, inception, HP, tangled, ratatouille
+    movie_id = random.choice(favorite_movies) #chooses random movie_id from the list
+    movie_url = BASE_URL + "/movie/" + str(movie_id)
+    movie_response = requests.get(movie_url, params=QUERY_PARAMS)
     return movie_response.json()
 
 @app.route("/")
 def get_movie():
+    '''calls functions from tmdb and renders the output to flask'''
     global movies # = get_random_movie()
     movies = get_random_movie()
     return flask.render_template(
         "index.html", 
-        movie_title = get_title(movies),
-        movie_tagline = get_tagline(movies),
-        movie_genre = get_genre(movies),
-        movie_image = get_image(movies),
-        movie_wiki = get_wiki_page(movies)
+        movie_title=get_title(movies),
+        movie_tagline=get_tagline(movies),
+        movie_genre=get_genre(movies),
+        movie_image=get_image(movies),
+        movie_wiki=get_wiki_page(movies)
     )
 
 app.run(
