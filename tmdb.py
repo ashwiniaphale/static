@@ -12,7 +12,7 @@ QUERY_PARAMS = {
     'api_key': os.getenv('API_KEY'),
 }
 CONFIG_RESPONSE = requests.get(CONFIG_URL, params=QUERY_PARAMS)
-CONFIGURATION = CONFIG_RESPONSE .json()
+CONFIGURATION = CONFIG_RESPONSE.json()
 
 def get_title(movies):
     '''returns title of movie'''
