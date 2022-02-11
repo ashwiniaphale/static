@@ -6,7 +6,7 @@ Ash's Movie Explorer is a web application that randomizes a movie and its detail
 
 ## Layout of Project
 
-The contents of this web application include "static" and "templates" directory. The CSS components (style.css and external images) are found within the static directory. The HTML page (index.html) is found within the templates directory. In addition, the project directory includes app.py, tmdb.py, a Procfile, requirements.txt, a .env file, and a .gitignore file. The flask framework is running in app.py, whereas the API fetching is done in my tmdb.py file. 
+The contents of this web application include "static" and "templates" directories. The CSS components (style.css and external images) are found within the static directory. The HTML page (index.html) is found within the templates directory. In addition, the project directory includes app.py, tmdb.py, a Procfile, requirements.txt, a .env file, and a .gitignore file. The flask framework is running in app.py, whereas the API fetching is done in my tmdb.py file. 
 
 ### Using Flask
 
@@ -27,7 +27,7 @@ Within this file I imported these libraries: os, requests, dotenv (load_dotenv, 
 * I used the dotenv library to call the methods listed above to help recognize my API key from the .env file, so the file will call the APIs as intended. 
 * The requests library allows us to send HTTP requests using python. 
 
-I created a separate function for each piece of information we were fetching for the TMDB Movie API. This resulted in 4 methods: get_title, get_tagline, get_genre, get_image. Using the movie json response made in app.py, we can easily filter through the JSON to find the title and tagline. The genres were a bit more complicated because the output was a list of dictionaries, so it needed to be looped through and picked the value from the key-value pair. For the movie poster, I had to use the configuration API and build the final url from the base_url + size + poster_path. 
+I created a separate function for each piece of information we were fetching for the TMDB Movie API. This resulted in 4 methods: get_title, get_tagline, get_genre, get_image. Using the movie json response (made in app.py), we can easily filter through the JSON to find the title and tagline. The genres were a bit more complicated because the output was a list of dictionaries, so it needed to be looped through and picked the value from the key-value pair. For the movie poster, I had to use the configuration API and build the final url from the base_url + size + poster_path. 
 
 The last function in this file is get_wiki_page (calls information from Wiki API). I constructed the Wikipedia article url from the link and the movie title that was passed through as a query parameter from the get_title function above. 
 
@@ -42,8 +42,8 @@ Forking a repo means copying the repo and allowing for free changes without affe
 
 ### What are 3 technical issues you encountered with your project? How did you fix them?
 
-1. The biggest issue I had was circular imports. I initially had made 2 separate python files - one for the TMDB API and one for the Wiki API. I originially passed through movie id to every function made, however that caused me to have to import app.py inito both files, and already both files were imported into app.py in order to call the functions. This caused a circular import problem so I ended up moving the Wiki API function to tmdb.py and created a global movies variable that was the JSON response. 
-2. I struggled to fetch just the genres from the API. The output was a list of dictionaries, so I had to research how to only get the values from each dictionary. 
+1. The biggest issue I had was circular imports. I initially had made 2 separate python files - one for the TMDB API and one for the Wiki API. I originially passed through movie id to every function made, however that caused me to have to import app.py into both files, and both files were already imported into app.py in order to call the functions. This caused a circular import error so I ended up moving the Wiki API function to tmdb.py and created a global "movies" variable that was the JSON response. 
+2. I struggled to fetch just the genres from the API. The output was a list of dictionaries, so I had to research how to only get the values from each dictionary. I ended up looping through the list and adding the values to a string separated by commas. 
 3. When creating the Wiki API function, I struggled on setting up the final article url. The Wiki API was much harder to understand and read than the TMDB one for me. At first I tried using the Info API to pull the full url from it. However, I needed the Wiki movie id, which I did not know how to get. I ended up creating a global movie JSON response variable, and was able to pass that through the function. Because of this variable, the Wiki API now knows what movie to search for.  
 
 ### What are known problems, if any, with your project?
