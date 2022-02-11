@@ -1,3 +1,9 @@
+# pylint: disable=invalid-name
+# pylint: disable=line-too-long
+# pylint: disable=trailing-whitespace
+# pylint: disable=trailing-newlines
+# pylint: disable=missing-module-docstring
+# pylint: disable=global-variable-undefined
 import os
 import random
 import flask
@@ -35,7 +41,7 @@ def get_movie():
 
 app.run(
     host=os.getenv('IP', '0.0.0.0'),
-    port=int(os.getenv('PORT', 8080)),
+    port=int(os.getenv('PORT', "8080")),
     debug=True
 )
 

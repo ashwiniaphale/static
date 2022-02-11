@@ -1,7 +1,9 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=line-too-long
+# pylint: disable=trailing-whitespace
 import os
 import requests
 from dotenv import load_dotenv, find_dotenv
-
 load_dotenv(find_dotenv())
 
 BASE_URL = "https://api.themoviedb.org/3"
