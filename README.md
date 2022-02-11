@@ -38,7 +38,10 @@ The application is deployed on Heroku. The application can be found at: https://
 
 ### What happens when someone forks from the repo?
 
-Forking a repo means copying the repo and allowing for free changes without affecting the original project. If one cloned the repo, they would have to have all the frameworks installed in order to run the project. For example if someone cloned my repo, they would have to install flask. They would also need their own API key from TMDB, and to put that within a .env file. 
+Forking a repo means copying the repo and allowing for free changes without affecting the original project. If one cloned the repo, they would have to have all the frameworks installed in order to run the project. For example if someone cloned my repo, they would have to install flask, requests. They would also need their own API key from TMDB, and to put that within a .env file. 
+1. pip install python-dotenv
+2. pip install requests
+3. pip install flask
 
 ### What are 3 technical issues you encountered with your project? How did you fix them?
 
